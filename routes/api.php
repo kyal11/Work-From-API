@@ -27,6 +27,7 @@ Route::get('/', function () {
     ], 401);
 })->name('login');
 
+// ROUTING USERS
 Route::post('register',[UserController::class,'register']);
 Route::post('login',[UserController::class,'login']);
 
@@ -36,5 +37,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::delete('logout',[UserController::class,'logout']);
 });
 
+// ROUTING PROPERTIES
 Route::get('properties',[PropertyController::class,'index']);
 Route::get('properties/{id}',[PropertyController::class,'show']);
+Route::post('properties',[PropertyController::class,'store']);
+Route::put('properties/{id}',[PropertyController::class,'update']);
+Route::delete('properties/{id}',[PropertyController::class,'destroy']);
