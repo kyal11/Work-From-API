@@ -1,7 +1,9 @@
 <?php
 
+use App\Http\Controllers\FasilityController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\UserController;
+use App\Models\Facility;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -40,18 +42,21 @@ Route::middleware('auth:sanctum')->group(function () {
 
     // ROUTING PROPERTIES
     Route::post('properties',[PropertyController::class,'store']);
-    // Route::get('properties',[PropertyController::class,'index']);
-    // Route::get('properties',[PropertyController::class,'search']);
+    Route::get('properties',[PropertyController::class,'index']);
     Route::get('properties/{id}',[PropertyController::class,'show']);
     Route::put('properties/{id}',[PropertyController::class,'update']);
     Route::delete('properties/{id}',[PropertyController::class,'destroy']);
 
 
     // ROUTING FACILITIES
+    Route::post('/properties/{idProperty}/facilities',[FasilityController::class,'store']);
+    Route::get('/properties/{idProperty}/facilities',[FasilityController::class,'list']);
+    Route::get('/properties/{idProperty}/facilities/{idFacility}',[FasilityController::class,'show']);
+    Route::put('/properties/{idProperty}/facilities/{idFacility}',[FasilityController::class,'update']);
+    Route::delete('/properties/{idProperty}/facilities/{idFacility}',[FasilityController::class,'delete']);
 
 });
 
-// ROUTING PROPERTIES
-Route::get('properties',[PropertyController::class,'index']);
+
 
 

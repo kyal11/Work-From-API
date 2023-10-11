@@ -24,7 +24,7 @@ return new class extends Migration
             $table->timestamps();
             
         
-            $table->foreign('property_id')->on('properties')->references('id');
+            $table->foreign('property_id')->on('property')->references('id');
             $table->foreign('user_id')->on('users')->references('id');
         });
     }

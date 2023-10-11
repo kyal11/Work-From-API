@@ -13,9 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('fasilities', function (Blueprint $table) {
+        Schema::create('facilities', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger("property_id")->nullable(false);
+            $table->string("name",100)->nullable(false);
+            $table->integer("qty")->nullable(true);
+            $table->text("description")->nullable(true);
             $table->timestamps();
+
+            $table->foreign("property_id")->on("properties")->references("id");
         });
     }
 

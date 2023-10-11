@@ -13,6 +13,7 @@ class Facility extends Model
     protected $fillable = [
         'property_id',
         'name',
+        'qty',
         'description',
     ];
     public function properties(): BelongsTo {
