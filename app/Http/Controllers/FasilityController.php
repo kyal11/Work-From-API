@@ -14,7 +14,7 @@ class FasilityController extends Controller
             $user = $request->user();
             $property = Property::where('id', $idProperty)->where('user_id', $user->id)->first();
         
-            if ($property->isEmpty()) {
+            if ($property === null) {
                 return response()->json([
                     'status' => false,
                     'message' => 'Data tidak ditemukan',
@@ -48,7 +48,7 @@ class FasilityController extends Controller
             $user = $request->user();
             $property = Property::where('id', $idProperty)->where('user_id', $user->id)->first();
     
-            if ($property->isEmpty()) {
+            if ($property === null) {
                 return response()->json([
                     'status' => false,
                     'message' => 'Data tidak ditemukan',
@@ -94,7 +94,7 @@ class FasilityController extends Controller
             $user = $request->user();
             $property = Property::where('id', $idProperty)->where('user_id', $user->id)->first();
 
-            if ($property->isEmpty()) {
+            if ($property === null) {
                 return response()->json([
                     'status' => false,
                     'message' => 'Data Property tidak ditemukan',
@@ -104,7 +104,7 @@ class FasilityController extends Controller
 
             $facility = Facility::where('property_id', $property->id)->where('id',$idFacility)->first();
 
-            if ($facility->isEmpty()) {
+            if ($facility === null) {
                 return response()->json([
                     'status' => false,
                     'message' => 'Data facility tidak ditemukan',
@@ -130,7 +130,7 @@ class FasilityController extends Controller
             $user = $request->user();
             $property = Property::where('id', $idProperty)->where('user_id', $user->id)->first();
     
-            if ($property->isEmpty()) {
+            if ($property === null) {
                 return response()->json([
                     'status' => false,
                     'message' => 'Data tidak ditemukan',
@@ -153,7 +153,7 @@ class FasilityController extends Controller
     
             $facility = Facility::where('property_id', $property->id)->where('id',$idFacility)->first();
             
-            if ($facility->isEmpty()) {
+            if ($facility === null) {
                 return response()->json([
                     'status' => false,
                     'message' => 'Data facility tidak ditemukan',
@@ -184,7 +184,7 @@ class FasilityController extends Controller
             $user = $request->user();
             $property = Property::where('id', $idProperty)->where('user_id', $user->id)->first();
     
-            if ($property->isEmpty()) {
+            if ($property === null) {
                 return response()->json([
                     'status' => false,
                     'message' => 'Data tidak ditemukan',
@@ -194,7 +194,7 @@ class FasilityController extends Controller
     
             $facility = Facility::where('property_id', $property->id)->where('id',$idFacility)->first();
             
-            if ($facility->isEmpty()) {
+            if ($facility === null) {
                 return response()->json([
                     'status' => false,
                     'message' => 'Data facility tidak ditemukan',

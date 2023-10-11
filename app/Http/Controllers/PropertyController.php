@@ -53,7 +53,7 @@ class PropertyController extends Controller
         $user = $request->user();
         try {
             $property = Property::where('id',$id)->where('user_id',$user->id)->first();
-            if ($property->isEmpty()) {
+            if ($property === null) {
                 return response()->json([
                     'status' => false,
                     'message' => 'Data property tidak ditemukan',
@@ -128,7 +128,7 @@ class PropertyController extends Controller
         try {
             $property = Property::where('id',$id)->where('user_id',$user->id)->first();
 
-            if (empty($property)) {
+            if ($property === null) {
                 return response()->json([
                     'status' => false,
                     'message' => 'Data tidak ditemukan'
@@ -181,7 +181,7 @@ class PropertyController extends Controller
         try {
             $property = Property::where('id',$id)->where('user_id',$user->id)->first();
 
-            if ($property->isEmpty()) {
+            if ($property === null) {
                 return response()->json([
                     'status' => false,
                     'message' => 'Data property tidak ditemukan'
