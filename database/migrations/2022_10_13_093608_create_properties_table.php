@@ -15,16 +15,18 @@ return new class extends Migration
     {
         Schema::create('properties', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger("user_id")->nullable(false);
-            $table->string("name",100)->nullable(false);
-            $table->string("address",255)->nullable(true);
-            $table->string("price");
+            $table->unsignedBigInteger("user_id");
+            $table->string("name", 100);
+            $table->string('building_name')->nullable();
+            $table->string("domicile", 255)->nullable();
+            $table->string("address", 255)->nullable();
+            $table->unsignedInteger("price"); // Corrected data type to unsignedInteger
             $table->integer("capacity");
             $table->text("description");
             $table->boolean("status");
             $table->timestamps();
 
-            $table->foreign("user_id")->on("users")->references("id");
+            $table->foreign("user_id")->references("id")->on("users");
         });
     }
 

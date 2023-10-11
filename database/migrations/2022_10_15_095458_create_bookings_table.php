@@ -13,18 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('orders', function (Blueprint $table) {
+        Schema::create('bookings', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('property_id')->nullable(false);
-            $table->unsignedBigInteger('user_id')->nullable(false);
-            $table->date('tanggal_pesan');
-            $table->date('tanggal_mulai');
-            $table->date('tanggal_selesai');
-            $table->enum('status', ['terbooking', 'selesai', 'dibatalkan']);
+            $table->unsignedBigInteger('property_id')->nullable(true);
+            $table->unsignedBigInteger('user_id')->nullable(true);
+            $table->date('booking_date');
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->enum('status', ['booked', 'finished', 'canceled']);
             $table->timestamps();
             
         
-            $table->foreign('property_id')->on('property')->references('id');
+            $table->foreign('property_id')->on('properties')->references('id');
             $table->foreign('user_id')->on('users')->references('id');
         });
     }
@@ -36,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('orders');
+        Schema::dropIfExists('bookings');
     }
 };

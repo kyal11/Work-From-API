@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('username')->nullable(false)->unique("users_username_unique");
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('phone_number');
             $table->rememberToken();
             $table->unsignedBigInteger("role_id")->nullable(true);
             $table->timestamps();

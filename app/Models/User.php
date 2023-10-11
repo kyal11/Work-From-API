@@ -29,10 +29,10 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class, 'role_id', 'id');
     }
     public function properties(): HasMany {
-        return $this->hasMany(Propertie::class, 'user_id', 'id');
+        return $this->hasMany(Property::class, 'user_id', 'id');
     }
-    public function orders(): HasMany {
-        return $this->hasMany(Order::class, 'user_id', 'id');
+    public function bookings(): HasMany {
+        return $this->hasMany(Booking::class, 'user_id', 'id');
     }
      protected $fillable = [
         'username',

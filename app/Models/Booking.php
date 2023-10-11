@@ -6,15 +6,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
-class Order extends Model
+class Booking extends Model
 {
     use HasFactory;
     protected $fillable = [
         'property_id',
         'user_id',
-        'tanggal_pesan',
-        'tanggal_mulai',
-        'tanggal_selesai',
+        'booking_date',
+        'start_date',
+        'end_date',
         'status',
     ];
     public function users(): BelongsToMany {
@@ -22,6 +22,6 @@ class Order extends Model
     }
 
     public function properties(): BelongsToMany {
-        return $this->belongsToMany(User::class, 'property_id', 'id');
+        return $this->belongsToMany(Property::class, 'property_id', 'id');
     }
 }

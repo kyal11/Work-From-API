@@ -16,6 +16,7 @@ class UserController extends Controller
         $rules = [
             'username' => 'required',
             'email' => 'required|email|unique:users,email',
+            'phone_number' => 'required',
             'password' => 'required',
         ];
         $validator = Validator::make($request->all(),$rules);
@@ -30,6 +31,7 @@ class UserController extends Controller
         $datauser->username = $request->username;
         $datauser->email = $request->email;
         $datauser->password = Hash::make($request->password);
+        $datauser->phone_number = $request->phone_number; 
 
         $datauser->save();
         return response()->json([
@@ -37,7 +39,8 @@ class UserController extends Controller
             'message' => 'Sukses membuat akun',
             'data' => [
                 'username' => $datauser->username,
-                'email' => $datauser->email
+                'email' => $datauser->email,
+                'phone_number' => $datauser->phone_number
             ]
         ], 200);
     }
@@ -97,7 +100,8 @@ class UserController extends Controller
     
         $rules = [
             'email' => 'email|unique:users,email,' . $user->id, 
-            'password' => 'min:6', 
+            'password' => 'min:6',
+            'phone_number' => 'min:8',
         ];
     
         $validator = Validator::make($request->all(), $rules);
@@ -116,6 +120,9 @@ class UserController extends Controller
     
         if ($request->has('password')) {
             $user->password = Hash::make($request->password);
+        }
+        if ($request->has('phone_number')) {
+            $user->phone_number = $request->phone_number;
         }
     
         $user->save();

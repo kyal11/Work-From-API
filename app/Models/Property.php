@@ -13,6 +13,7 @@ class Property extends Model
     protected $fillable = [
         'user_id',
         'name',
+        'domicile',
         'address',
         'price',
         'capacity',
@@ -25,7 +26,7 @@ class Property extends Model
     public function facilities(): HasMany {
         return $this->hasMany(Facility::class, 'property_id', 'id');
     }
-    public function orders(): HasMany {
-        return $this->hasMany(Order::class, 'property_id', 'id');
+    public function bookings(): HasMany {
+        return $this->hasMany(Booking::class, 'property_id', 'id');
     }
 }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\FasilityController;
 use App\Http\Controllers\PropertyController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\BookingController;
 use App\Models\Facility;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -55,6 +56,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::put('/properties/{idProperty}/facilities/{idFacility}',[FasilityController::class,'update']);
     Route::delete('/properties/{idProperty}/facilities/{idFacility}',[FasilityController::class,'delete']);
 
+    // ROUTING BOOKINGS
+    Route::get('bookings',[BookingController::class,'index']);
+    Route::post('bookings',[BookingController::class,'store']);
+    Route::get('bookings/{id}',[BookingController::class,'show']);
+    Route::put('bookings/{id}',[BookingController::class,'update']);
+    Route::delete('bookings/{id}',[BookingController::class,'destroy']);
 });
 
 
