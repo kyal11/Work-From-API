@@ -31,15 +31,27 @@ Route::get('/', function () {
 Route::post('register',[UserController::class,'register']);
 Route::post('login',[UserController::class,'login']);
 
+// Login User Using Token
 Route::middleware('auth:sanctum')->group(function () {
+    // ROUTING USERS
     Route::get('current-user',[UserController::class,'currentUser']);
     Route::patch('update-user',[UserController::class,'updateUser']);
     Route::delete('logout',[UserController::class,'logout']);
+
+    // ROUTING PROPERTIES
+    Route::post('properties',[PropertyController::class,'store']);
+    // Route::get('properties',[PropertyController::class,'index']);
+    // Route::get('properties',[PropertyController::class,'search']);
+    Route::get('properties/{id}',[PropertyController::class,'show']);
+    Route::put('properties/{id}',[PropertyController::class,'update']);
+    Route::delete('properties/{id}',[PropertyController::class,'destroy']);
+
+
+    // ROUTING FACILITIES
+
 });
 
 // ROUTING PROPERTIES
 Route::get('properties',[PropertyController::class,'index']);
-Route::get('properties/{id}',[PropertyController::class,'show']);
-Route::post('properties',[PropertyController::class,'store']);
-Route::put('properties/{id}',[PropertyController::class,'update']);
-Route::delete('properties/{id}',[PropertyController::class,'destroy']);
+
+

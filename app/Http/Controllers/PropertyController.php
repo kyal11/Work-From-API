@@ -8,10 +8,17 @@ use Illuminate\Support\Facades\Validator;
 
 class PropertyController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
         try {
-            $data = Property::orderBy('name', 'asc')->get();
-            
+            $query = Property::query();
+            $name = $request->input('name');
+    
+            if ($name) {
+                $query->where('name', 'like', '%' . $name . '%');
+            }
+    
+            $data = $query->orderBy('name', 'asc')->get();
+    
             if ($data->isEmpty()) {
                 return response()->json([
                     'status' => false,
@@ -19,7 +26,7 @@ class PropertyController extends Controller
                     'data' => []
                 ], 404); 
             }
-        
+    
             return response()->json([
                 'status' => true,
                 'message' => 'Data property ditemukan',
@@ -32,12 +39,13 @@ class PropertyController extends Controller
             ], 400); 
         }
     }
+    
 
-    public function show($id)
+    public function show($id,Request $request)
     {
+        $user = $request->user();
         try {
-            $property = Property::find($id);
-
+            $property = Property::where('id',$id)->where('user_id',$user->id)->first();
             if ($property === null) {
                 return response()->json([
                     'status' => false,
@@ -60,9 +68,9 @@ class PropertyController extends Controller
     }
     public function store(Request $request)
     {
+        $user = $request->user();
         try {
             $validator = Validator::make($request->all(), [
-                'user_id' => 'required', 
                 'name' => 'required',
                 'address' => 'required',
                 'price' => 'required',
@@ -80,7 +88,7 @@ class PropertyController extends Controller
             }
 
             $property = new Property;
-            $property->user_id = $request->user_id;
+            $property->user_id = $user->id;
             $property->name = $request->name;
             $property->address = $request->address;
             $property->price = $request->price;
@@ -105,8 +113,9 @@ class PropertyController extends Controller
 
     public function update(Request $request, $id)
     {
+        $user = $request->user();
         try {
-            $property = Property::find($id);
+            $property = Property::where('id',$id)->where('user_id',$user->id)->first();
 
             if (empty($property)) {
                 return response()->json([
@@ -116,7 +125,6 @@ class PropertyController extends Controller
             }
 
             $validator = Validator::make($request->all(), [
-                'user_id' => 'required', // Sesuaikan dengan field yang sesuai di tabel properties
                 'name' => 'required',
                 'address' => 'required',
                 'price' => 'required',
@@ -133,7 +141,7 @@ class PropertyController extends Controller
                 ], 400);
             }
 
-            $property->user_id = $request->user_id;
+            $property->user_id = $user->id;
             $property->name = $request->name;
             $property->address = $request->address;
             $property->price = $request->price;
@@ -147,19 +155,20 @@ class PropertyController extends Controller
                 'status' => true,
                 'message' => 'Data property berhasil diupdate',
                 'data' => $property
-            ], 201); // Respon 201 untuk Created
+            ], 201);
         } catch (\Exception $e) {
             return response()->json([
                 'status' => false,
                 'message' => 'Terjadi kesalahan: ' . $e->getMessage()
-            ], 400); // Respon 400 untuk kesalahan umum
+            ], 400);
         }
     }
 
-    public function destroy($id)
+    public function destroy($id,Request $request)
     {
+        $user = $request->user();
         try {
-            $property = Property::find($id);
+            $property = Property::where('id',$id)->where('user_id',$user->id)->first();
 
             if (empty($property)) {
                 return response()->json([
@@ -174,12 +183,12 @@ class PropertyController extends Controller
                 'status' => true,
                 'message' => 'Data property berhasil dihapus',
                 'data' => $property
-            ], 201); // Respon 201 untuk Created
+            ], 201); 
         } catch (\Exception $e) {
             return response()->json([
                 'status' => false,
                 'message' => 'Terjadi kesalahan: ' . $e->getMessage()
-            ], 400); // Respon 400 untuk kesalahan umum
+            ], 400); 
         }
     }
 }
